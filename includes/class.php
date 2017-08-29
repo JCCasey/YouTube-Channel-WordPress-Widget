@@ -30,7 +30,7 @@
             }
 
             //Widget Content Output
-            echo '<div class="g-ytsubscribe" data-channelid="'.$instance['channel'].'" data-layout="full" data-count="default"></div>';
+            echo '<div class="g-ytsubscribe" data-channelid="'.$instance['channel'].'" data-layout="'.$instance['layout'].'" data-count="default"></div>';
             echo $args['after_widget'];
         }
     
@@ -42,10 +42,24 @@
          * @param array $instance Previously saved values from database.
          */
         public function form( $instance ) {
-            $title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'YouTube Subs', 'yts_domain' );
-           
+            $title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'YouTube Channel', 'yts_domain' );
             $channel = ! empty( $instance['channel'] ) ? $instance['channel'] : esc_html__( '', 'yts_domain' );
+            $layout = ! empty( $instance['layout'] ) ? $instance['layout'] : esc_html__( 'default', 'yts_domain' );
+            $count = ! empty( $instance['count'] ) ? $instance['count'] : esc_html__( 'default', 'yts_domain' );
             ?>
+
+            <!-- Title -->
+            <p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+                    <?php esc_attr_e( 'Title:', 'yts_domain' ); ?>
+                </label> 
+                <input 
+                    class="widefat" 
+                    id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" 
+                    name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" 
+                    type="text" 
+                    value="<?php echo esc_attr( $title ); ?>">
+            </p>
 
             <!-- Channel -->
             <p>
@@ -60,18 +74,36 @@
                     value="<?php echo esc_attr( $channel ); ?>">
             </p>
 
-            <!-- Title -->
+            <!-- Layout -->
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
-                    <?php esc_attr_e( 'Title:', 'yts_domain' ); ?>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>">
+                    <?php esc_attr_e( 'Layout:', 'yts_domain' ); ?>
                 </label> 
-                <input 
+                <select 
                     class="widefat" 
-                    id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" 
-                    name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" 
-                    type="text" 
-                    value="<?php echo esc_attr( $title ); ?>">
+                    id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>" 
+                    name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>" 
+                    value="<?php echo esc_attr( $layout ); ?>">
+                    <option value="default" <?php echo ($layout == 'default') ? 'selected' : ''?> >Default</option>
+                    <option value="full" <?php echo ($layout == 'full') ? 'selected' : ''?> >Full</option>
+                </select>
             </p>
+
+            <!-- Count -->
+            <p>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>">
+                <?php esc_attr_e( 'Count:', 'yts_domain' ); ?>
+            </label> 
+            <select 
+                class="widefat" 
+                id="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>" 
+                name="<?php echo esc_attr( $this->get_field_name( 'count' ) ); ?>" 
+                value="<?php echo esc_attr( $count ); ?>">
+                <option value="default" <?php echo ($count == 'default') ? 'selected' : ''?> >Default</option>
+                <option value="hidden" <?php echo ($count == 'hidden') ? 'selected' : ''?> >Hidden</option>
+            </select>
+        </p>
+
             <?php 
         }
     
@@ -87,11 +119,13 @@
          */
         public function update( $new_instance, $old_instance ) {
             $instance = array();
-            $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-            
-            $instance['channel'] = ( ! empty( $new_instance['channel'] ) ) ? strip_tags( $new_instance['channel'] ) : '';
-    
+
+                $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+                $instance['channel'] = ( ! empty( $new_instance['channel'] ) ) ? strip_tags( $new_instance['channel'] ) : '';
+                $instance['layout'] = ( ! empty( $new_instance['layout'] ) ) ? strip_tags( $new_instance['layout'] ) : '';
+                $instance['count'] = ( ! empty( $new_instance['count'] ) ) ? strip_tags( $new_instance['count'] ) : '';
+        
             return $instance;
         }
     
-    } // class Foo_Widget
+    } // class YouTube_Subs_Widget
