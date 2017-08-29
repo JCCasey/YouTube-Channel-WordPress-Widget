@@ -65,7 +65,8 @@
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'channel' ) ); ?>">
                     <?php esc_attr_e( 'Channel:', 'yts_domain' ); ?>
-                </label> 
+                </label><br>
+                <small><em>YouTube Channel ID Here...</em></small>
                 <input 
                     class="widefat" 
                     id="<?php echo esc_attr( $this->get_field_id( 'channel' ) ); ?>" 
