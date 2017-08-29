@@ -30,7 +30,7 @@
             }
 
             //Widget Content Output
-            echo '<div class="g-ytsubscribe" data-channelid="'.$instance['channel'].'" data-layout="'.$instance['layout'].'" data-count="default"></div>';
+            echo '<div class="g-ytsubscribe" data-channelid="'.$instance['channel'].'" data-layout="'.$instance['layout'].'" data-count="'.$instance['count'].'"></div>';
             echo $args['after_widget'];
         }
     
@@ -128,4 +128,4 @@
             return $instance;
         }
     
-    } // class YouTube_Subs_Widget
+    } // class Foo_Widget
