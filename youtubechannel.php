@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: YouTube Subs
+Plugin Name: YouTube Channel Widget
 Plugin URI: https://devwrangler.com/
 Description: Display YouTube Button & Count
 Version: 1.0.0
